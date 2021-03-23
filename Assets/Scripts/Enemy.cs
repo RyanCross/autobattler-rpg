@@ -5,12 +5,16 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     public int hp = 10;
+    public Hero hero;
 
     Animator animator; 
     // Start is called before the first frame update
     void Start()
     {
-        animator = GetComponent<Animator>();   
+        animator = GetComponent<Animator>();
+        hero = FindObjectOfType<Hero>();
+        hero.Hit += processHit;
+
     }
 
     // Update is called once per frame
@@ -25,9 +29,15 @@ public class Enemy : MonoBehaviour
             animator.SetTrigger("hit");
         }
 
-        if(Input.GetKeyDown(KeyCode.D))
+        if(hp <= 0)
         {
             animator.SetBool("dead", true);
         }
+    }
+
+    void processHit(int damage)
+    {
+        hp -= 1;
+        Debug.Log($"HP is now {hp}");
     }
 }
