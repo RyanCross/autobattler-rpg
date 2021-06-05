@@ -38,6 +38,8 @@ public class Enemy : MonoBehaviour
     void processHit(int damage)
     {
         hp -= 1;
+        if (hp >= 1)
+            animator.SetTrigger("hit");
         Debug.Log($"HP is now {hp}");
     }
 }
